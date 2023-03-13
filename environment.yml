@@ -1,4 +1,4 @@
-name: python37
+name: dsci550-extract
 channels:
   - conda-forge
   - defaults
@@ -197,8 +197,6 @@ dependencies:
   - sphinxcontrib-jsmath=1.0.1=pyhd3eb1b0_0
   - sphinxcontrib-qthelp=1.0.3=pyhd3eb1b0_0
   - sphinxcontrib-serializinghtml=1.1.5=pyhd3eb1b0_0
-  - spyder=3.3.6=py37_0
-  - spyder-kernels=0.5.2=py37_0
   - sqlite=3.40.1=h880c91c_0
   - terminado=0.17.1=py37hecd8cb5_0
   - threadpoolctl=2.2.0=pyh0d69192_0
@@ -236,4 +234,4 @@ dependencies:
       - python-magic==0.4.27
       - setuptools==59.5.0
       - watermark==2.3.0
-prefix: /Users/egunadi/anaconda3/envs/python37
+prefix: /Users/egunadi/anaconda3/envs/dsci550-extract

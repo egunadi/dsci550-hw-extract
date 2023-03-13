@@ -1,13 +1,13 @@
-# DSCI550 Team 7 - Homework 1: Analysis of the Newest Social Media Dataset Focused on “Clean” and Less Toxic Social Media
+# DSCI550 Team 7 - Homework 2: Large Scale Social Media Extraction and Analysis for Pixstory
 
-https://github.com/egunadi/dsci550-hw-bigdata
+https://github.com/egunadi/dsci550-hw-extract
 
-See intro section of our report (worked on by Annie Chang) for overview of project.
+See intro section of our report for overview of project.
 
 ## Dependencies
 
 ```
-name: python37
+name: dsci550-extract
 channels:
   - conda-forge
   - defaults
@@ -206,8 +206,6 @@ dependencies:
   - sphinxcontrib-jsmath=1.0.1=pyhd3eb1b0_0
   - sphinxcontrib-qthelp=1.0.3=pyhd3eb1b0_0
   - sphinxcontrib-serializinghtml=1.1.5=pyhd3eb1b0_0
-  - spyder=3.3.6=py37_0
-  - spyder-kernels=0.5.2=py37_0
   - sqlite=3.40.1=h880c91c_0
   - terminado=0.17.1=py37hecd8cb5_0
   - threadpoolctl=2.2.0=pyh0d69192_0
@@ -245,7 +243,8 @@ dependencies:
       - python-magic==0.4.27
       - setuptools==59.5.0
       - watermark==2.3.0
-prefix: /Users/egunadi/anaconda3/envs/python37
+prefix: /Users/egunadi/anaconda3/envs/dsci550-extract
+
 ```
 
 ## Installation
@@ -255,68 +254,30 @@ The environment.yml file in GitHub can be used to recreate our environment.
 The following modules also need to be installed, along with their dependencies:
 
 - Tika-Python <http://github.com/chrismattmann/tika-python>
-- Tika-Similarity <http://github.com/chrismattmann/tika-similarity>
-- D3.js <http://d3js.org>
-- ETL lib <https://github.com/chrismattmann/etllib>
+- Google’s LangDetect <https://pypi.org/project/langdetect>
+- RTG (Reader Translator Generator) <https://gowda.ai/posts/2021/04/mtdata-nlcodec-rtg-many-english>
+- GeoTopicParser <https://cwiki.apache.org/confluence/display/tika/GeoTopicParser>
+- Detoxify <https://pypi.org/project/detoxify>
+- Tika Dockers 
+  - <https://github.com/USCDataScience/tika-dockers> and 
+  - <https://hub.docker.com/r/uscdatascience/im2txt-rest-tika>
 
 ## Running the project
 
-If downloading from GitHub, the "data/pixstory" folder will be empty due to proprietary concerns. This data should be obtained directly from Dr. Mattmann and extracted into the folder.
+If downloading from GitHub, the "data/pixstory" folder will be empty due to proprietary concerns. A "pixstory_v2.tsv" file should be present, which is a copy of "pixstory_final.tsv" from homework #1.
 
 Results can be reproduced via "code/main.py", which runs the following functions in order:
 
 ### Data Consolidation and Cleaning Functions
 
-- consolidate_pixstory_data.consolidate_pixstory_data()
-  - Consolidates all Pixstory files into "data/pixstory/pixstory.csv"
-  - Worked on by Eben Gunadi 
-- consolidate_pixstory_data.convert_csv_to_tsv()
-  - Uses "data/pixstory/pixstory.csv" to create "data/pixstory/pixstory_original.tsv"
-  - Worked on by Eben Gunadi 
-- scrub_pixstory_data.scrub_pixstory_data()
-  - Uses "data/pixstory/pixstory.csv" to create "data/pixstory/pixstory_clean.csv" (see "Data Cleaning" section of our report for details)
+- scrub_pixstory_data.convert_tsv_to_csv()
+  - Uses "data/pixstory/pixstory_v2.tsv" to create "data/pixstory/pixstory_v2.csv"
   - Worked on by Eben Gunadi 
 
 ### Functions that adds features to the dataset
 
-- sporting_events.post_event_date_match()
-  - Uses "data/pixstory/pixstory_clean.csv" to create "data/pixstory/pixstory_sports.csv" (see "Sporting Events" section of our report for details)
-  - Worked on by Shih-Min (Julia) Huang
-- film_festivals.post_filmfestival_date_match()
-  - Uses "data/pixstory/pixstory_sports.csv" to create "data/pixstory/pixstory_film.csv" (see "Film Festivals" section of our report for details)
-  - Worked on by Yi Chang
-- Hate_Speech.flag_pixstory_hate()
-  - Uses "data/pixstory/pixstory_film.csv" to create "data/pixstory/pixstory_hate.csv" (see "Hate Speech Dataset" section of our report for details)
-  - Worked on by Annie Chang
-- analyze_sarcasm_data.flag_pixstory_sarc()
-  - Uses "data/pixstory/pixstory_hate.csv" to create "data/pixstory/pixstory_sarc.csv" (see "Sarcasm Dataset" section of our report for details)
-  - Worked on by Eben Gunadi 
-- analyze_diagnosis_data.flag_pixstory_dx()
-  - Uses "data/pixstory/pixstory_sarc.csv" to create "data/pixstory/pixstory_dx.csv" (see "Diagnosis Dataset" section of our report for details)
-  - Worked on by Eben Gunadi 
-- analyze_hobby_data.joinHobbiesToPix()
-  - Uses "data/pixstory/pixstory_dx.csv" to create "data/pixstory/pixstory_hobby.csv" (see "Hobbies Dataset" section of our report for details)
-  - Worked on by Lesly Escobar
-- depression_anxiety_index.merge_AD_indexes() 
-  - Uses "data/pixstory/pixstory_hobby.csv" to create "data/pixstory/pixstory_adindex.csv" (see "Anxiety and Depression Indexes Dataset" section of our report for details)
-  - Worked on by Shih-Min (Julia) Huang
+TBD
 
-Being the last csv created, "data/pixstory/pixstory_adindex.csv" contains all the features generated in this project.
+### Analysis
 
-### Tika Similarity analysis
-
-- consolidate_pixstory_data.convert_csv_to_tsv()
-  - Uses "data/pixstory/pixstory_adindex.csv" to create "data/pixstory/pixstory_final.tsv"
-  - Worked on by Eben Gunadi 
-
-#### ETL
-
-To process "data/pixstory/pixstory_final.tsv" we need to break up the data into individual JSON files. For ease of processing, these files will be stored in subfolders containing 100 files. 
-
-This process is done by navigating to "etl/json" and running the commands in "etl/shell-commands.sh". Worked on by Lesly Escobar, Eben Gunadi, and Yi Chang.
-
-#### Cluster Data via Circle Parking
-
-"analysis/shell-commands.sh" lists shell/terminal commands that were used inside "analysis/data" to produce the visualizations seen in "analysis/pdfs". This process was worked on by Lesly Escobar, Eben Gunadi, and Yi Chang.
-
-Our paper details the analysis done on these visualizations, worked on by Lesly Escobar.
+TBD
