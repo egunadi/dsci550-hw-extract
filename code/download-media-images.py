@@ -1,14 +1,13 @@
 import requests
 import time
 import pandas as pd
+import concurrent.futures
 
-# urls = '../data/pixstory/media-urls-test.csv'
+url_df = pd.read_csv('../data/pixstory/media-urls.csv', names=['url'])
 """
 sample URL:
 https://image.pixstory.com/optimized/Pixstory-image-165895631710621.png
 """
-
-url_df = pd.read_csv('../data/pixstory/media-urls-test.csv', names=['url'])
 
 def download_image(img_url):
     img_bytes = requests.get(img_url).content
@@ -17,9 +16,11 @@ def download_image(img_url):
     with open(img_name, 'wb') as img_file:
         img_file.write(img_bytes)
 
-t1 = time.perf_counter()
-for line in url_df.itertuples():
-    download_image(line.url)
-t2 = time.perf_counter()
+start_time = time.perf_counter()
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    for line in url_df.itertuples():
+        executor.submit(download_image, line.url)
+end_time = time.perf_counter()
 
-print(f'Finished in {t2-t1} seconds')
+print(f'Finished in {end_time - start_time} seconds')
+# took approximately 15 minutes to finish on local machine
