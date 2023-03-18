@@ -333,7 +333,10 @@ Results can be reproduced via "code/main.py", which runs the following functions
 
 - media_urls.get_urls()
   - Uses "data/pixstory/pixstory_v2.csv" to create "data/pixstory/media-urls.csv", a list of Media URLs
-- media_images.
+  - Worked on by Eben Gunadi 
+- media_images.download_images()
+  - Uses "data/pixstory/media-urls.csv" to download all pixstory Media images into directory "data/pixstory/media-files"
+  - Worked on by Eben Gunadi 
 - im2text.get_captions()
   - Uses "data/pixstory/pixstory_v2.csv" to create "data/pixstory/pixstory_im2text.csv" (see "Image Text Captioning" section of our report for details)
   - Images in "data/pixstory/media-files" were served using node's http server module
