@@ -306,6 +306,16 @@ The following modules also need to be installed, along with their dependencies:
 - Tika Dockers 
   - <https://github.com/USCDataScience/tika-dockers> and 
   - <https://hub.docker.com/r/uscdatascience/im2txt-rest-tika>
+- Node.js and its http-server module
+  - https://nodejs.org/en/download
+  - https://www.npmjs.com/package/http-server
+
+### Notes on Docker Setup
+
+- The following Docker settings were used
+  - CPUs: 8
+  - Memory: 8 GB
+  - Swap: 1 GB
 
 ## Running the project
 
@@ -321,7 +331,13 @@ Results can be reproduced via "code/main.py", which runs the following functions
 
 ### Functions that adds features to the dataset
 
-TBD
+- media_urls.get_urls()
+  - Uses "data/pixstory/pixstory_v2.csv" to create "data/pixstory/media-urls.csv", a list of Media URLs
+- media_images.
+- im2text.get_captions()
+  - Uses "data/pixstory/pixstory_v2.csv" to create "data/pixstory/pixstory_im2text.csv" (see "Image Text Captioning" section of our report for details)
+  - Images in "data/pixstory/media-files" were served using node's http server module
+  - Worked on by Eben Gunadi 
 
 ### Analysis
 
