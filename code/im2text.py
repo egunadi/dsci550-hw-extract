@@ -7,14 +7,11 @@ from pathlib import Path
 im2text_url = 'http://localhost:8764/inception/v3/caption/image'
 # Docker instance of "im2txt-rest-tika " must be running on port 8764
 
-directory_path = '../data/pixstory/media-files-test'
+directory_path = '../data/pixstory/media-files'
 media_files = glob.glob(f"{directory_path}/*")
 
-def get_caption(media_file):
+def get_caption(filename):
     Path("../data/pixstory/media-captions").mkdir(parents=True, exist_ok=True)
-    
-    filename = Path(media_file).name
-    filestem = Path(media_file).stem
     
     media_url= 'http://192.168.1.8:8000/' + filename
     # Images in "data/pixstory/media-files" must be served on port 8000 
@@ -26,7 +23,7 @@ def get_caption(media_file):
     response_json = response.json()
     
     caption = response_json['captions'][0]['sentence']
-    caption_name = f'../data/pixstory/media-captions/{filestem}.txt'
+    caption_name = f'../data/pixstory/media-captions/{filename}.txt'
     
     with open(caption_name, 'w') as file_handler:
         file_handler.write(caption)
@@ -36,7 +33,8 @@ def get_captions():
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
         for media_file in media_files:
-            executor.submit(get_caption, media_file)
+            filename = Path(media_file).name
+            executor.submit(get_caption, filename)
             
     end_time = time.perf_counter()
 
