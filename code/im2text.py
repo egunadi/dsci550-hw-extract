@@ -39,7 +39,7 @@ def get_captions():
     end_time = time.perf_counter()
 
     print(f'Finished in {end_time - start_time} seconds')
-    # took approximately 15 minutes to finish on local machine
+    # took a little over 31 hours to finish on local machine
     
 if __name__ == '__main__':
     get_captions()
