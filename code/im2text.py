@@ -3,12 +3,13 @@ import time
 import concurrent.futures
 import glob
 from pathlib import Path
+import pandas as pd
 
 im2text_url = 'http://localhost:8764/inception/v3/caption/image'
 # Docker instance of "im2txt-rest-tika " must be running on port 8764
 
-directory_path = '../data/pixstory/media-files'
-media_files = glob.glob(f"{directory_path}/*")
+media_path = '../data/pixstory/media-files'
+media_files = glob.glob(f"{media_path}/*")
 
 def get_caption(filename):
     Path("../data/pixstory/media-captions").mkdir(parents=True, exist_ok=True)
@@ -28,7 +29,7 @@ def get_caption(filename):
     with open(caption_name, 'w') as file_handler:
         file_handler.write(caption)
 
-def get_captions():
+def get_caption_files():
     start_time = time.perf_counter()
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -41,5 +42,32 @@ def get_captions():
     print(f'Finished in {end_time - start_time} seconds')
     # took a little over 31 hours to finish on local machine
     
+def get_caption_df():
+    caption_path = '../data/pixstory/media-captions'
+    caption_files = glob.glob(f"{caption_path}/*")
+    
+    caption_list = []
+    for caption_file in caption_files:
+        with open(caption_file, 'r') as file_handler:
+            media_name = 'https://image.pixstory.com/' + Path(caption_file).stem
+            caption = file_handler.read()
+            caption_list.append((media_name, caption))
+    
+    caption_df = pd.DataFrame(caption_list, columns=['Media', 'media_captions'])
+    
+    return caption_df
+    
+def flag_pixstory_captions():
+    pixstory_filepath = '../data/pixstory/pixstory_v2.csv'
+    pixstory_df = pd.read_csv(pixstory_filepath, delimiter=',', encoding='utf-8')
+    
+    caption_df = get_caption_df()
+    
+    pixstory_df = pixstory_df.merge(caption_df, on='Media', how='left')
+    
+    pixstory_df.to_csv('../data/pixstory/pixstory_captions.csv', encoding='utf-8', index=False)
+    # took about a minute to finish on local machine
+
 if __name__ == '__main__':
-    get_captions()
+    get_caption_files()
+    flag_pixstory_captions()
