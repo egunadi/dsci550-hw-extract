@@ -307,6 +307,13 @@ The following modules also need to be installed, along with their dependencies:
   - <https://github.com/USCDataScience/tika-dockers> and 
   - <https://hub.docker.com/r/uscdatascience/im2txt-rest-tika>
 
+### Notes on Docker Setup
+
+- The following Docker settings were used
+  - CPUs: 8
+  - Memory: 8 GB
+  - Swap: 1 GB
+
 ## Running the project
 
 If downloading from GitHub, the "data/pixstory" folder will be empty due to proprietary concerns. A "pixstory_v2.tsv" file should be present, which is a copy of "pixstory_final.tsv" from homework #1.
@@ -321,7 +328,21 @@ Results can be reproduced via "code/main.py", which runs the following functions
 
 ### Functions that adds features to the dataset
 
-TBD
+- media_urls.get_urls()
+  - Uses "data/pixstory/pixstory_v2.csv" to create "data/pixstory/media-urls.csv", a list of Media URLs
+  - Worked on by Eben Gunadi 
+- media_images.download_images()
+  - Uses "data/pixstory/media-urls.csv" to download all pixstory Media images into directory "data/pixstory/media-files"
+  - Worked on by Eben Gunadi 
+- im2text.get_caption_files()
+  - Uses media files in "data/pixstory/media-files" to output captions in "data/pixstory/media-captions" 
+  - To run:
+    - Docker instance of "im2txt-rest-tika " must be running on port 8764
+    - Images in "data/pixstory/media-files" must be served using `python -m http.server` on port 8000
+  - Worked on by Eben Gunadi 
+- im2text.flag_pixstory_captions()
+  - Uses captions in "data/pixstory/media-captions" to create "data/pixstory/pixstory_captions.csv"
+  - Worked on by Eben Gunadi 
 
 ### Analysis
 
