@@ -50,8 +50,8 @@ def get_caption_df():
     for caption_file in caption_files:
         with open(caption_file, 'r') as file_handler:
             media_name = 'https://image.pixstory.com/' + Path(caption_file).stem
-            caption = file_handler.read()
-            caption_list.append((media_name, caption))
+            captions = file_handler.read()
+            caption_list.append((media_name, captions))
     
     caption_df = pd.DataFrame(caption_list, columns=['Media', 'media_captions'])
     

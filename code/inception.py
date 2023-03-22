@@ -25,12 +25,12 @@ def get_object(filename):
                             params = parameters)    
     response_json = response.json()
     
-    caption_list = response_json['classnames']
-    caption_string = ', '.join(caption_list)
-    caption_name = f'../data/pixstory/media-objects/{filename}.txt'
+    object_list = response_json['classnames']
+    object_string = ', '.join(object_list)
+    object_name = f'../data/pixstory/media-objects/{filename}.txt'
     
-    with open(caption_name, 'w') as file_handler:
-        file_handler.write(caption_string)
+    with open(object_name, 'w') as file_handler:
+        file_handler.write(object_string)
 
 def get_object_files():
     start_time = time.perf_counter()
@@ -45,32 +45,32 @@ def get_object_files():
     print(f'Finished in {end_time - start_time} seconds')
     # took almost 8.5 hours to finish on local machine
     
-# def get_object_df():
-#     caption_path = '../data/pixstory/media-objects'
-#     caption_files = glob.glob(f"{caption_path}/*")
+def get_object_df():
+    object_path = '../data/pixstory/media-objects'
+    object_files = glob.glob(f"{object_path}/*")
     
-#     caption_list = []
-#     for caption_file in caption_files:
-#         with open(caption_file, 'r') as file_handler:
-#             media_name = 'https://image.pixstory.com/' + Path(caption_file).stem
-#             caption = file_handler.read()
-#             caption_list.append((media_name, caption))
+    object_list = []
+    for object_file in object_files:
+        with open(object_file, 'r') as file_handler:
+            media_name = 'https://image.pixstory.com/' + Path(object_file).stem
+            objects = file_handler.read()
+            object_list.append((media_name, objects))
     
-#     object_df = pd.DataFrame(caption_list, columns=['Media', 'media_captions'])
+    object_df = pd.DataFrame(object_list, columns=['Media', 'media_objects'])
     
-#     return object_df
+    return object_df
     
-# def flag_pixstory_objects():
-#     pixstory_filepath = '../data/pixstory/pixstory_v2.csv'
-#     pixstory_df = pd.read_csv(pixstory_filepath, delimiter=',', encoding='utf-8')
+def flag_pixstory_objects():
+    pixstory_filepath = '../data/pixstory/pixstory_captions.csv'
+    pixstory_df = pd.read_csv(pixstory_filepath, delimiter=',', encoding='utf-8')
     
-#     object_df = get_object_df()
+    object_df = get_object_df()
     
-#     pixstory_df = pixstory_df.merge(object_df, on='Media', how='left')
+    pixstory_df = pixstory_df.merge(object_df, on='Media', how='left')
     
-#     pixstory_df.to_csv('../data/pixstory/pixstory_objects.csv', encoding='utf-8', index=False)
-    # took about a minute to finish on local machine
+    pixstory_df.to_csv('../data/pixstory/pixstory_objects.csv', encoding='utf-8', index=False)
+    # took about 3 minutes to finish on local machine
 
 if __name__ == '__main__':
     get_object_files()
-    # flag_pixstory_objects()
+    flag_pixstory_objects()
