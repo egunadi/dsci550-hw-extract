@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 
 im2text_url = 'http://localhost:8764/inception/v3/caption/image'
-# Docker instance of "im2txt-rest-tika " must be running on port 8764
+# Docker instance of "im2txt-rest-tika" must be running on port 8764
 
 media_path = '../data/pixstory/media-files'
 media_files = glob.glob(f"{media_path}/*")

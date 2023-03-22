@@ -303,7 +303,7 @@ The following modules also need to be installed, along with their dependencies:
 - RTG (Reader Translator Generator) <https://gowda.ai/posts/2021/04/mtdata-nlcodec-rtg-many-english>
 - GeoTopicParser <https://cwiki.apache.org/confluence/display/tika/GeoTopicParser>
 - Detoxify <https://pypi.org/project/detoxify>
-- Tika Dockers 
+- Tika Dockers `uscdatascience/im2txt-rest-tika` and `uscdatascience/inception-rest-tika`
   - <https://github.com/USCDataScience/tika-dockers> and 
   - <https://hub.docker.com/r/uscdatascience/im2txt-rest-tika>
 
@@ -313,6 +313,7 @@ The following modules also need to be installed, along with their dependencies:
   - CPUs: 8
   - Memory: 8 GB
   - Swap: 1 GB
+- Docker commands used can be seen in `docker-commands.sh`
 
 ## Running the project
 
