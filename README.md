@@ -338,12 +338,21 @@ Results can be reproduced via "code/main.py", which runs the following functions
 - im2text.get_caption_files()
   - Uses media files in "data/pixstory/media-files" to output captions in "data/pixstory/media-captions" 
   - To run:
-    - Docker instance of "im2txt-rest-tika " must be running on port 8764
+    - Docker instance of "im2txt-rest-tika" must be running on port 8764
     - Images in "data/pixstory/media-files" must be served using `python -m http.server` on port 8000
   - Worked on by Eben Gunadi 
 - im2text.flag_pixstory_captions()
   - Uses captions in "data/pixstory/media-captions" to create "data/pixstory/pixstory_captions.csv"
+  - Worked on by Eben Gunadi
+- im2text.get_object_files()
+  - Uses media files in "data/pixstory/media-files" to output objects in "data/pixstory/media-objects" 
+  - To run:
+    - Docker instance of "inception-rest-tika" must be running on port 8764
+    - Images in "data/pixstory/media-files" must be served using `python -m http.server` on port 8000
   - Worked on by Eben Gunadi 
+- im2text.flag_pixstory_objects()
+  - Uses objects in "data/pixstory/media-objects" to create "data/pixstory/pixstory_objects.csv"
+  - Worked on by Eben Gunadi
 
 ### Analysis
 
