@@ -303,7 +303,7 @@ The following modules also need to be installed, along with their dependencies:
 - RTG (Reader Translator Generator) <https://gowda.ai/posts/2021/04/mtdata-nlcodec-rtg-many-english>
 - GeoTopicParser <https://cwiki.apache.org/confluence/display/tika/GeoTopicParser>
 - Detoxify <https://pypi.org/project/detoxify>
-- Tika Dockers 
+- Tika Dockers `uscdatascience/im2txt-rest-tika` and `uscdatascience/inception-rest-tika`
   - <https://github.com/USCDataScience/tika-dockers> and 
   - <https://hub.docker.com/r/uscdatascience/im2txt-rest-tika>
 
@@ -313,6 +313,7 @@ The following modules also need to be installed, along with their dependencies:
   - CPUs: 8
   - Memory: 8 GB
   - Swap: 1 GB
+- Docker commands used can be seen in `docker-commands.sh`
 
 ## Running the project
 
@@ -337,12 +338,21 @@ Results can be reproduced via "code/main.py", which runs the following functions
 - im2text.get_caption_files()
   - Uses media files in "data/pixstory/media-files" to output captions in "data/pixstory/media-captions" 
   - To run:
-    - Docker instance of "im2txt-rest-tika " must be running on port 8764
+    - Docker instance of "im2txt-rest-tika" must be running on port 8764
     - Images in "data/pixstory/media-files" must be served using `python -m http.server` on port 8000
   - Worked on by Eben Gunadi 
 - im2text.flag_pixstory_captions()
   - Uses captions in "data/pixstory/media-captions" to create "data/pixstory/pixstory_captions.csv"
+  - Worked on by Eben Gunadi
+- im2text.get_object_files()
+  - Uses media files in "data/pixstory/media-files" to output objects in "data/pixstory/media-objects" 
+  - To run:
+    - Docker instance of "inception-rest-tika" must be running on port 8764
+    - Images in "data/pixstory/media-files" must be served using `python -m http.server` on port 8000
   - Worked on by Eben Gunadi 
+- im2text.flag_pixstory_objects()
+  - Uses objects in "data/pixstory/media-objects" to create "data/pixstory/pixstory_objects.csv"
+  - Worked on by Eben Gunadi
 
 ### Analysis
 

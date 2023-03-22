@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 
 im2text_url = 'http://localhost:8764/inception/v3/caption/image'
-# Docker instance of "im2txt-rest-tika " must be running on port 8764
+# Docker instance of "im2txt-rest-tika" must be running on port 8764
 
 media_path = '../data/pixstory/media-files'
 media_files = glob.glob(f"{media_path}/*")
@@ -50,8 +50,8 @@ def get_caption_df():
     for caption_file in caption_files:
         with open(caption_file, 'r') as file_handler:
             media_name = 'https://image.pixstory.com/' + Path(caption_file).stem
-            caption = file_handler.read()
-            caption_list.append((media_name, caption))
+            captions = file_handler.read()
+            caption_list.append((media_name, captions))
     
     caption_df = pd.DataFrame(caption_list, columns=['Media', 'media_captions'])
     
