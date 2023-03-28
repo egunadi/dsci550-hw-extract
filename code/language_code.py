@@ -16,7 +16,7 @@ def tika_lan_det(pixstory_df):
             lang_code_lst.append(language.from_buffer(narrative))
         except:
             lang_code_lst.append('zz')  #for posts with emoji that runs into error, set language code as "zz"
-        lang_code_lst.append(language.from_buffer(narrative))
+        # lang_code_lst.append(language.from_buffer(narrative))
 
     lang_code_df = pd.DataFrame(lang_code_lst)
     lang_code_df.columns = ["tika_lan_code"]
