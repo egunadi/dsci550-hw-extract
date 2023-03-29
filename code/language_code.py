@@ -21,6 +21,7 @@ def tika_lan_det(pixstory_df):
     lang_code_df = pd.DataFrame(lang_code_lst)
     lang_code_df.columns = ["tika_lan_code"]
     df_concat_tika = pd.concat([pixstory_df, lang_code_df.reset_index(drop=True)], axis = 1)
+    df_concat_tika["tika_lan_code"].fillna("zz", inplace=True)
     return df_concat_tika
 
 
