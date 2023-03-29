@@ -13,15 +13,16 @@ def tika_lan_det(pixstory_df):
     lang_code_lst = list()
     for narrative in pixstory_df["Narrative"]:
         try:
-            lang_code_lst.append(language.from_buffer(narrative))
+            if language.from_buffer(narrative).isna():
+                lang_code_lst.append('zz')
+            else:
+                lang_code_lst.append(language.from_buffer(narrative))
         except:
             lang_code_lst.append('zz')  #for posts with emoji that runs into error, set language code as "zz"
-        # lang_code_lst.append(language.from_buffer(narrative))
 
     lang_code_df = pd.DataFrame(lang_code_lst)
     lang_code_df.columns = ["tika_lan_code"]
     df_concat_tika = pd.concat([pixstory_df, lang_code_df.reset_index(drop=True)], axis = 1)
-    df_concat_tika["tika_lan_code"].fillna("zz", inplace=True)
     return df_concat_tika
 
 
@@ -35,7 +36,6 @@ def google_lan_det(pixstory_tika_df):
             lang_code_lst.append(detect(narrative))
         except:
             lang_code_lst.append('zz')  #for posts with emoji that runs into error, set language code as "zz"
-        # lang_code_lst.append(detect(narrative))
 
     lang_code_df = pd.DataFrame(lang_code_lst)
     lang_code_df.columns = ["ggl_lan_code"]
