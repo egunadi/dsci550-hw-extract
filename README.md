@@ -334,12 +334,14 @@ Results can be reproduced via "code/main.py", which runs the following functions
   - Worked on by Eben Gunadi 
 - media_images.download_images()
   - Uses "data/pixstory/media-urls.csv" to download all pixstory Media images into directory "data/pixstory/media-files"
+  - For convenience, our paper contains a link for downloading these media images
   - Worked on by Eben Gunadi 
 - im2text.get_caption_files()
   - Uses media files in "data/pixstory/media-files" to output captions in "data/pixstory/media-captions" 
   - To run:
     - Docker instance of "im2txt-rest-tika" must be running on port 8764
     - Images in "data/pixstory/media-files" must be served using `python -m http.server` on port 8000
+  - For convenience, our paper contains a link for downloading these caption files
   - Worked on by Eben Gunadi 
 - im2text.flag_pixstory_captions()
   - Uses captions in "data/pixstory/media-captions" to create "data/pixstory/pixstory_captions.csv"
@@ -349,6 +351,7 @@ Results can be reproduced via "code/main.py", which runs the following functions
   - To run:
     - Docker instance of "inception-rest-tika" must be running on port 8764
     - Images in "data/pixstory/media-files" must be served using `python -m http.server` on port 8000
+  - For convenience, our paper contains a link for downloading these object files
   - Worked on by Eben Gunadi 
 - inception.flag_pixstory_objects()
   - Uses objects in "data/pixstory/media-objects" to create "data/pixstory/pixstory_objects.csv"
