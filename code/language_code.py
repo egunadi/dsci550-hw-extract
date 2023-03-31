@@ -13,7 +13,7 @@ def tika_lan_det(pixstory_df):
     lang_code_lst = list()
     for narrative in pixstory_df["Narrative"]:
         try:
-            if language.from_buffer(narrative).isna():
+            if pd.isna(language.from_buffer(narrative)) or language.from_buffer(narrative) == "":
                 lang_code_lst.append('zz')
             else:
                 lang_code_lst.append(language.from_buffer(narrative))
