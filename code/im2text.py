@@ -8,14 +8,14 @@ import pandas as pd
 im2text_url = 'http://localhost:8764/inception/v3/caption/image'
 # Docker instance of "im2txt-rest-tika" must be running on port 8764
 
-media_path = '../data/pixstory/media-files'
+media_path = '../data/pixstory/media_files'
 media_files = glob.glob(f"{media_path}/*")
 
 def get_caption(filename):
-    Path("../data/pixstory/media-captions").mkdir(parents=True, exist_ok=True)
+    Path("../data/pixstory/media_captions").mkdir(parents=True, exist_ok=True)
     
     media_url= 'http://192.168.1.8:8000/' + filename
-    # Images in "data/pixstory/media-files" must be served on port 8000 
+    # Images in "data/pixstory/media_files" must be served on port 8000 
     # ex. using `python -m http.server` 
     
     parameters = dict(url = media_url)
@@ -24,7 +24,7 @@ def get_caption(filename):
     response_json = response.json()
     
     caption = response_json['captions'][0]['sentence']
-    caption_name = f'../data/pixstory/media-captions/{filename}.txt'
+    caption_name = f'../data/pixstory/media_captions/{filename}.txt'
     
     with open(caption_name, 'w') as file_handler:
         file_handler.write(caption)
@@ -43,7 +43,7 @@ def get_caption_files():
     # took a little over 31 hours to finish on local machine
     
 def get_caption_df():
-    caption_path = '../data/pixstory/media-captions'
+    caption_path = '../data/pixstory/media_captions'
     caption_files = glob.glob(f"{caption_path}/*")
     
     caption_list = []

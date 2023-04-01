@@ -4,18 +4,18 @@ import pandas as pd
 import concurrent.futures
 from pathlib import Path
 
-url_df = pd.read_csv('../data/pixstory/media-urls.csv', names=['url'])
+url_df = pd.read_csv('../data/pixstory/media_urls.csv', names=['url'])
 """
 sample URL:
 https://image.pixstory.com/optimized/Pixstory-image-165895631710621.png
 """
 
 def download_image(img_url):
-    Path("../data/pixstory/media-files").mkdir(parents=True, exist_ok=True)
+    Path("../data/pixstory/media_files").mkdir(parents=True, exist_ok=True)
     
     img_bytes = requests.get(img_url).content
     img_name = img_url.split('/')[4]
-    img_name = f'../data/pixstory/media-files/{img_name}'
+    img_name = f'../data/pixstory/media_files/{img_name}'
     
     with open(img_name, 'wb') as img_file:
         img_file.write(img_bytes)

@@ -8,14 +8,14 @@ import pandas as pd
 inception_url = 'http://localhost:8764/inception/v4/classify/image'
 # Docker instance of "inception-rest-tika" must be running on port 8764
 
-media_path = '../data/pixstory/media-files'
+media_path = '../data/pixstory/media_files'
 media_files = glob.glob(f"{media_path}/*")
 
 def get_object(filename):
-    Path("../data/pixstory/media-objects").mkdir(parents=True, exist_ok=True)
+    Path("../data/pixstory/media_objects").mkdir(parents=True, exist_ok=True)
     
     media_url= 'http://192.168.1.8:8000/' + filename
-    # Images in "data/pixstory/media-files" must be served on port 8000 
+    # Images in "data/pixstory/media_files" must be served on port 8000 
     # ex. using `python -m http.server` 
     
     parameters = dict(topn = 2,
@@ -27,7 +27,7 @@ def get_object(filename):
     
     object_list = response_json['classnames']
     object_string = ', '.join(object_list)
-    object_name = f'../data/pixstory/media-objects/{filename}.txt'
+    object_name = f'../data/pixstory/media_objects/{filename}.txt'
     
     with open(object_name, 'w') as file_handler:
         file_handler.write(object_string)
@@ -46,7 +46,7 @@ def get_object_files():
     # took almost 8.5 hours to finish on local machine
     
 def get_object_df():
-    object_path = '../data/pixstory/media-objects'
+    object_path = '../data/pixstory/media_objects'
     object_files = glob.glob(f"{object_path}/*")
     
     object_list = []
