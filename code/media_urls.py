@@ -8,7 +8,7 @@ def get_urls():
     
     media_df = pixstory_df['Media']
         
-    media_df.to_csv('../data/pixstory/media-urls.csv', encoding='utf-8', index=False)
+    media_df.to_csv('../data/pixstory/media_urls.csv', encoding='utf-8', index=False)
     
 if __name__ == '__main__':
     get_urls()

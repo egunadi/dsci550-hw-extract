@@ -44,8 +44,11 @@ def google_lan_det(pixstory_tika_df):
     df_concat_ggl.to_csv('../data/pixstory/pixstory_langdetect.csv', encoding='utf-8', index=False)
     return df_concat_ggl
 
-if __name__ == '__main__':
+def run_google_lan_det():
     pixstory_df_path = "../data/pixstory/pixstory_objects.csv"
     pixstory_df = get_pixstory_df(pixstory_df_path)
     pixstory_df = tika_lan_det(pixstory_df)
     google_lan_det(pixstory_df)
+
+if __name__ == '__main__':
+    run_google_lan_det()

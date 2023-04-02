@@ -5,7 +5,7 @@ from tika import tika
 from tika import parser
 
 
-pixstory = '/Users/Lesly/project/dsci550-hw-extract/data/pixstory/test_pix.csv' 
+pixstory = '../data/pixstory/pixstory_translations.csv'
 pixstory_df = pd.read_csv(pixstory, header=1)
 # print(pixstory_df)
 # print(pixstory_df.columns)
@@ -26,10 +26,15 @@ def location_info(text):
         location['longitude'] = metadata.get('Geographic_LONGITUDE')
         # print('location$$$', location)
     return location
-#apply function to each row of 'Narrative' column in pixstory_df
-#location info stored in the new 'Location' column in pixstory_df
-pixstory_df['Location'] = pixstory_df['Narrative'].apply(location_info)
 
-print('made it past @@@@@@@@@@@@@@@@@@@@@@@@@@')
-
-pixstory_df.to_csv('../data/pixstory/geo_df.csv', index=False)
+def create_geo_df():
+    #apply function to each row of 'Narrative' column in pixstory_df
+    #location info stored in the new 'Location' column in pixstory_df
+    pixstory_df['Location'] = pixstory_df['Narrative'].apply(location_info)
+    
+    print('made it past @@@@@@@@@@@@@@@@@@@@@@@@@@')
+    
+    pixstory_df.to_csv('../data/pixstory/geo_df.csv', index=False)
+    
+if __name__ == '__main__':
+    create_geo_df()

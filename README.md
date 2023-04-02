@@ -321,41 +321,57 @@ If downloading from GitHub, the "data/pixstory" folder will be empty due to prop
 
 Results can be reproduced via "code/main.py", which runs the following functions in order:
 
-### Data Consolidation and Cleaning Functions
+### Data Consolidation
 
-- scrub_pixstory_data.convert_tsv_to_csv()
+- consolidate_pixstory_data.convert_tsv_to_csv()
   - Uses "data/pixstory/pixstory_v2.tsv" to create "data/pixstory/pixstory_v2.csv"
+  - Worked on by Eben Gunadi 
+- media_urls.get_urls()
+  - Uses "data/pixstory/pixstory_v2.csv" to create "data/pixstory/media_urls.csv", a list of Media URLs
+  - Worked on by Eben Gunadi 
+- media_images.download_images()
+  - Uses "data/pixstory/media_urls.csv" to download all pixstory Media images into directory "data/pixstory/media_files"
+  - For convenience, our paper contains a link for downloading these media images
   - Worked on by Eben Gunadi 
 
 ### Functions that adds features to the dataset
 
-- media_urls.get_urls()
-  - Uses "data/pixstory/pixstory_v2.csv" to create "data/pixstory/media-urls.csv", a list of Media URLs
-  - Worked on by Eben Gunadi 
-- media_images.download_images()
-  - Uses "data/pixstory/media-urls.csv" to download all pixstory Media images into directory "data/pixstory/media-files"
-  - For convenience, our paper contains a link for downloading these media images
-  - Worked on by Eben Gunadi 
 - im2text.get_caption_files()
-  - Uses media files in "data/pixstory/media-files" to output captions in "data/pixstory/media-captions" 
+  - Uses media files in "data/pixstory/media_files" to output captions in "data/pixstory/media_captions" 
   - To run:
     - Docker instance of "im2txt-rest-tika" must be running on port 8764
-    - Images in "data/pixstory/media-files" must be served using `python -m http.server` on port 8000
+    - Images in "data/pixstory/media_files" must be served using `python -m http.server` on port 8000
   - For convenience, our paper contains a link for downloading these caption files
   - Worked on by Eben Gunadi 
 - im2text.flag_pixstory_captions()
-  - Uses captions in "data/pixstory/media-captions" to create "data/pixstory/pixstory_captions.csv"
+  - Uses captions in "data/pixstory/media_captions" to create "data/pixstory/pixstory_captions.csv"
   - Worked on by Eben Gunadi
 - inception.get_object_files()
-  - Uses media files in "data/pixstory/media-files" to output objects in "data/pixstory/media-objects" 
+  - Uses media files in "data/pixstory/media_files" to output objects in "data/pixstory/media-objects" 
   - To run:
     - Docker instance of "inception-rest-tika" must be running on port 8764
-    - Images in "data/pixstory/media-files" must be served using `python -m http.server` on port 8000
+    - Images in "data/pixstory/media_files" must be served using `python -m http.server` on port 8000
   - For convenience, our paper contains a link for downloading these object files
   - Worked on by Eben Gunadi 
 - inception.flag_pixstory_objects()
-  - Uses objects in "data/pixstory/media-objects" to create "data/pixstory/pixstory_objects.csv"
+  - Uses objects in "data/pixstory/media_objects" to create "data/pixstory/pixstory_objects.csv"
   - Worked on by Eben Gunadi
+- language_code.run_google_lan_det()
+  - Uses "data/pixstory/pixstory_objects.csv" to create "data/pixstory/pixstory_langdetect.csv"
+  - Worked on by Shih-Min (Julia) Huang
+- google_translate.get_clean_narratives()
+  - Uses "data/pixstory/pixstory_langdetect.csv" to generate "data/pixstory/clean_narratives.csv"
+  - Worked on by Eben Gunadi 
+- google_translate.get_translation_files()
+  - Uses "data/pixstory/clean_narratives.csv" to output translations in "data/pixstory/narratives_translated"
+  - For convenience, our paper contains a link for downloading these translation files
+  - Worked on by Eben Gunadi, Yi Chang, and Annie Chang 
+- google_translate.flag_pixstory_translations()
+  - Uses translations in "data/pixstory/narratives_translated" to create "data/pixstory/pixstory_translations.csv"
+  - Worked on by Eben Gunadi
+- geotopic_parsing.create_geo_df()
+  - Uses "data/pixstory/pixstory_translations.csv" to create "data/pixstory/geo_df.csv"
+  - Worked on by Lesly Escobar
 
 ### Analysis
 
