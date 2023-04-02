@@ -35,8 +35,8 @@ docker run -d --name inception -p 8764:8764 uscdatascience/inception-rest-tika
 # https://cwiki.apache.org/confluence/display/TIKA/ImageCaption#ImageCaption-a.Usingdocker(Recommended)
 
 # RTG
-# Used for translation
-# ----------------------
+# Tried to use for translation
+# -----------------------------
 docker pull tgowda/rtg-model:500toEng-v1
 docker run -d --name rtg -p 6060:6060 tgowda/rtg-model:500toEng-v1
 # -d (daemon mode) allows container to be managed in Docker Desktop

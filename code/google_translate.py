@@ -9,20 +9,28 @@ def get_clean_narratives():
     pixstory_filepath = '../data/pixstory/pixstory_langdetect.csv'
     pixstory_df = pd.read_csv(pixstory_filepath, delimiter=',', encoding='utf-8')
     
-    # do not translate english narratives and those with junk characters
+    # do not translate english narratives and unsupported languages
     pixstory_df = pixstory_df[  (pixstory_df['tika_lan_code'] != 'en')
                               & (pixstory_df['ggl_lan_code'] != 'en') 
-                              & (pixstory_df['ggl_lan_code'] != 'zz')]
+                              & (pixstory_df['ggl_lan_code'] != 'zz')
+                              & (pixstory_df['ggl_lan_code'] != 'zh-cn')    ]
     
     narrative_df = pixstory_df[['Story Primary ID', 'Narrative', 'ggl_lan_code']]
-    narrative_df = narrative_df.rename(columns={'Story Primary ID': 'ID',
-                                                'Narrative': 'text',
-                                                'ggl_lan_code': 'language'})
+    narrative_df = narrative_df.rename(columns={'Story Primary ID'  : 'ID',
+                                                'Narrative'         : 'text',
+                                                'ggl_lan_code'      : 'language'})
     
     # remove non-alphanumeric characters
     narrative_df['text'] = narrative_df['text'] \
                             .astype(str) \
                             .str.replace('[^0-9a-zA-Z.,-/ ]', '') \
+                                
+    # ignore posts with no letters
+    narrative_df = narrative_df[narrative_df['text'].str.contains('[A-Za-z]', na=False)]
+    
+    # ignore posts with more than 1k characters
+    # (GoogleTranslator max length is 5k)
+    narrative_df = narrative_df[narrative_df['text'].str.len() <= 1000]
                                 
     # do not translate post if translation already exists
     translation_df = get_translation_df()
@@ -54,7 +62,7 @@ def get_translation_files():
     end_time = time.perf_counter()
 
     print(f'Finished in {end_time - start_time} seconds')
-    # took about 10 seconds for 8 posts
+    # took several tries in a span of 12 hours to complete
     
 def get_translation_df():
     translation_path = '../data/pixstory/narratives_translated'
@@ -71,18 +79,22 @@ def get_translation_df():
     
     return translation_df
     
-# def flag_pixstory_translations():
-#     pixstory_filepath = '../data/pixstory/pixstory_captions.csv'
-#     pixstory_df = pd.read_csv(pixstory_filepath, delimiter=',', encoding='utf-8')
+def flag_pixstory_translations():
+    pixstory_filepath = '../data/pixstory/pixstory_objects.csv'
+    pixstory_df = pd.read_csv(pixstory_filepath, delimiter=',', encoding='utf-8')
     
-#     translation_df = get_translation_df()
+    translation_df = get_translation_df()
+    translation_df['ID'] = translation_df['ID'].astype(int)
+    translation_df = translation_df.rename(columns={'ID'            : 'Story Primary ID',
+                                                    'translation'   : 'narrative_translation'})
     
-#     pixstory_df = pixstory_df.merge(translation_df, on='Media', how='left')
+    pixstory_df = pixstory_df.merge(translation_df, on='Story Primary ID', how='left')
     
-#     pixstory_df.to_csv('../data/pixstory/pixstory_translations.csv', encoding='utf-8', index=False)
-    # took about 3 minutes to finish on local machine
+    pixstory_df.to_csv('../data/pixstory/pixstory_translations.csv', encoding='utf-8', index=False)
+    # took about 1 minutes to finish on local machine
 
 if __name__ == '__main__':
-    get_clean_narratives()
+    # in case of timeouts or service limits, may have to run the first two over and over 
+    # get_clean_narratives()
     # get_translation_files()
-    # flag_pixstory_translations()
+    flag_pixstory_translations()
