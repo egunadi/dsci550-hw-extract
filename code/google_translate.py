@@ -95,6 +95,6 @@ def flag_pixstory_translations():
 
 if __name__ == '__main__':
     # in case of timeouts or service limits, may have to run the first two over and over 
-    # get_clean_narratives()
-    # get_translation_files()
+    get_clean_narratives()
+    get_translation_files()
     flag_pixstory_translations()
