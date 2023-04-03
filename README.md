@@ -386,3 +386,4 @@ If all functions are run in order, "data/pixstory/pixstory_detoxify.csv" should 
 ### Analysis
 
 See "observations" section of our report (worked on by Annie Chang) for an analysis of the data.
+- observations.py contains the script used
