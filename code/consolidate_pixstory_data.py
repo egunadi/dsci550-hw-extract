@@ -30,6 +30,11 @@ def combine_features():
     
     geo_df = geo_df.rename(columns={'storyPrimaryID': 'Story Primary ID'})
     
+    pixstory_df = pixstory_df.drop_duplicates(subset=['Story Primary ID'])
+    translations_df = translations_df.drop_duplicates(subset=['Story Primary ID'])
+    detoxify_df = detoxify_df.drop_duplicates(subset=['Story Primary ID'])
+    geo_df = geo_df.drop_duplicates(subset=['Story Primary ID'])
+    
     translations_df = translations_df[['Story Primary ID', 'tika_lan_code', 'ggl_lan_code']]
     detoxify_df = detoxify_df[['Story Primary ID', 'media_captions', 'media_objects', 
                                'narrative_translation', 'toxicity', 'severe_toxicity', 'obscene', 
