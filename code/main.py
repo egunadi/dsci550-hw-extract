@@ -28,6 +28,7 @@ if __name__ == '__main__':
     geotopic_parsing.create_geo_df()
     detoxify.run_detoxify()
     
-    # 4. convert final csv to tsv
-    # consolidate_pixstory_data.convert_csv_to_tsv('pixstory_adindex.csv', 'pixstory_final.tsv')
+    # 4. combine features (if needed) and convert final csv to tsv
+    # consolidate_pixstory_data.combine_features() # not needed if functions here are run in order
+    consolidate_pixstory_data.convert_csv_to_tsv('pixstory_detoxify.csv', 'pixstory_final.tsv')
     

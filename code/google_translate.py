@@ -80,7 +80,7 @@ def get_translation_df():
     return translation_df
     
 def flag_pixstory_translations():
-    pixstory_filepath = '../data/pixstory/pixstory_objects.csv'
+    pixstory_filepath = '../data/pixstory/pixstory_langdetect.csv'
     pixstory_df = pd.read_csv(pixstory_filepath, delimiter=',', encoding='utf-8')
     
     translation_df = get_translation_df()
