@@ -39,3 +39,10 @@ def detoxify(file):
             continue
 
     df.to_csv('pixstory_detoxify.csv')
+    
+def run_detoxify():
+    pixstory_df_path = "../data/pixstory/geo_df.csv"
+    detoxify(pixstory_df_path)
+    
+if __name__ == '__main__':
+    run_detoxify()
