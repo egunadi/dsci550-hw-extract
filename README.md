@@ -372,7 +372,17 @@ Results can be reproduced via "code/main.py", which runs the following functions
 - geotopic_parsing.create_geo_df()
   - Uses "data/pixstory/pixstory_translations.csv" to create "data/pixstory/geo_df.csv"
   - Worked on by Lesly Escobar
+- detoxify.run_detoxify()
+  - Uses "data/pixstory/geo_df.csv" to create "data/pixstory/pixstory_detoxify.csv"
+  - Worked on by Yi Chang
+
+If all functions are run in order, "data/pixstory/pixstory_detoxify.csv" should contain all the features generated in this project. However, due to time constraints, these features were generated in a parallel fashion and combined using functions:
+
+- consolidate_pixstory_data.combine_features()
+- consolidate_pixstory_data.convert_csv_to_tsv()
+  - These two functions producte a final "data/pixstory/pixstory_final.tsv" containing all features generated
+  - Worked on by Eben Gunadi
 
 ### Analysis
 
-TBD
+See "observations" section of our report (worked on by Annie Chang) for an analysis of the data.

@@ -6,6 +6,7 @@ import inception
 import language_code
 import google_translate
 import geotopic_parsing
+import detoxify
 
 if __name__ == '__main__':
     # 1. ensure '../data/pixstory/pixstory_v2.tsv' is present
@@ -25,6 +26,7 @@ if __name__ == '__main__':
     google_translate.get_translation_files()
     google_translate.flag_pixstory_translations()
     geotopic_parsing.create_geo_df()
+    detoxify.run_detoxify()
     
     # 4. convert final csv to tsv
     # consolidate_pixstory_data.convert_csv_to_tsv('pixstory_adindex.csv', 'pixstory_final.tsv')
