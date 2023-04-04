@@ -4,13 +4,6 @@ import json
 from tika import tika
 from tika import parser
 
-
-pixstory = '../data/pixstory/pixstory_translations.csv'
-pixstory_df = pd.read_csv(pixstory, header=1)
-# print(pixstory_df)
-# print(pixstory_df.columns)
-
-
 #take in text string and use .from_buffer to parse text with geotopic mime
 #extract location information- name, latitude, and longitde
 def location_info(text):
@@ -28,6 +21,11 @@ def location_info(text):
     return location
 
 def create_geo_df():
+    pixstory = '../data/pixstory/pixstory_translations.csv'
+    pixstory_df = pd.read_csv(pixstory, header=1)
+    # print(pixstory_df)
+    # print(pixstory_df.columns)
+    
     #apply function to each row of 'Narrative' column in pixstory_df
     #location info stored in the new 'Location' column in pixstory_df
     pixstory_df['Location'] = pixstory_df['Narrative'].apply(location_info)
