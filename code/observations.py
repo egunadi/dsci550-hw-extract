@@ -34,3 +34,9 @@ print(adl_corr)
 dt["sarc"] = df["sarc"].astype(int)
 sarc_corr = dt["sarc"].corr(dt["toxicity"])
 print(sarc_corr)
+
+cap_gen = dt.value_counts(subset=['Gender','media_captions']).reset_index(name='count')
+print(cap_gen)
+
+cap_age = dt.value_counts(subset=['Age','media_captions']).reset_index(name='count')
+print(cap_age)
