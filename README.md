@@ -372,7 +372,7 @@ Results can be reproduced via "code/main.py", which runs the following functions
 - geotopic_parsing.create_geo_df()
   - Uses "data/pixstory/pixstory_translations.csv" to create "data/pixstory/geo_df.csv"
   - Worked on by Lesly Escobar
-- detoxify.run_detoxify()
+- run_detoxify.run_detoxify()
   - Uses "data/pixstory/geo_df.csv" to create "data/pixstory/pixstory_detoxify.csv"
   - Worked on by Yi Chang
 

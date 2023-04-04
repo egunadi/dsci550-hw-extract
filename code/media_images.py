@@ -4,12 +4,6 @@ import pandas as pd
 import concurrent.futures
 from pathlib import Path
 
-url_df = pd.read_csv('../data/pixstory/media_urls.csv', names=['url'])
-"""
-sample URL:
-https://image.pixstory.com/optimized/Pixstory-image-165895631710621.png
-"""
-
 def download_image(img_url):
     Path("../data/pixstory/media_files").mkdir(parents=True, exist_ok=True)
     
@@ -21,6 +15,12 @@ def download_image(img_url):
         img_file.write(img_bytes)
         
 def download_images():
+    url_df = pd.read_csv('../data/pixstory/media_urls.csv', names=['url'])
+    """
+    sample URL:
+    https://image.pixstory.com/optimized/Pixstory-image-165895631710621.png
+    """
+    
     start_time = time.perf_counter()
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
