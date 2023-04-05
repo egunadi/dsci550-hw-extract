@@ -5,13 +5,10 @@ import glob
 from pathlib import Path
 import pandas as pd
 
-inception_url = 'http://localhost:8764/inception/v4/classify/image'
-# Docker instance of "inception-rest-tika" must be running on port 8764
-
-media_path = '../data/pixstory/media_files'
-media_files = glob.glob(f"{media_path}/*")
-
 def get_object(filename):
+    inception_url = 'http://localhost:8764/inception/v4/classify/image'
+    # Docker instance of "inception-rest-tika" must be running on port 8764
+
     Path("../data/pixstory/media_objects").mkdir(parents=True, exist_ok=True)
     
     media_url= 'http://192.168.1.8:8000/' + filename
@@ -33,6 +30,9 @@ def get_object(filename):
         file_handler.write(object_string)
 
 def get_object_files():
+    media_path = '../data/pixstory/media_files'
+    media_files = glob.glob(f"{media_path}/*")
+
     start_time = time.perf_counter()
     
     with concurrent.futures.ThreadPoolExecutor() as executor:

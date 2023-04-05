@@ -34,10 +34,9 @@ dependencies:
   - brotli=1.0.9=hca72f7f_7
   - brotli-bin=1.0.9=hca72f7f_7
   - brotlipy=0.7.0=py37h9ed2024_1003
-  - ca-certificates=2023.01.10=hecd8cb5_0
-  - certifi=2022.12.7=py37hecd8cb5_0
+  - ca-certificates=2022.12.7=h033912b_0
+  - certifi=2022.12.7=pyhd8ed1ab_0
   - cffi=1.15.1=py37h6c40b1e_3
-  - chardet=4.0.0=py37hecd8cb5_1003
   - charset-normalizer=2.0.4=pyhd3eb1b0_0
   - click=8.1.3=py37hf985489_0
   - cloudpickle=2.0.0=pyhd3eb1b0_0
@@ -67,7 +66,6 @@ dependencies:
   - gstreamer=1.14.1=h6c40b1e_1
   - huggingface_hub=0.10.1=py37hecd8cb5_0
   - icu=58.2=h0a44026_3
-  - idna=3.4=py37hecd8cb5_0
   - imagesize=1.4.1=py37hecd8cb5_0
   - importlib_metadata=4.2.0=hd8ed1ab_0
   - importlib_resources=5.2.0=pyhd3eb1b0_1
@@ -157,7 +155,7 @@ dependencies:
   - numpy=1.21.5=py37h2e5f0a9_3
   - numpy-base=1.21.5=py37h3b1a694_3
   - numpydoc=1.5.0=pyhd8ed1ab_0
-  - openssl=1.1.1t=hca72f7f_0
+  - openssl=1.1.1t=hfd90126_0
   - packaging=22.0=py37hecd8cb5_0
   - pandas=1.3.5=py37h743cdd8_0
   - pandocfilters=1.5.0=pyhd3eb1b0_0
@@ -205,7 +203,6 @@ dependencies:
   - python.app=3=py37hca72f7f_0
   - python_abi=3.7=2_cp37m
   - pytoolconfig=1.2.5=py37hecd8cb5_1
-  - pytorch=1.12.1=cpu_py37h64f2f56_1
   - pytz=2022.7=py37hecd8cb5_0
   - pyyaml=6.0=py37h6c40b1e_1
   - pyzmq=23.2.0=py37he9d5cce_0
@@ -259,7 +256,6 @@ dependencies:
   - tornado=6.2=py37hca72f7f_0
   - tqdm=4.64.1=py37hecd8cb5_0
   - traitlets=5.7.1=py37hecd8cb5_0
-  - transformers=4.24.0=py37hecd8cb5_0
   - typed-ast=1.4.3=py37h9ed2024_1
   - typing-extensions=4.4.0=py37hecd8cb5_0
   - typing_extensions=4.4.0=py37hecd8cb5_0
@@ -283,12 +279,57 @@ dependencies:
   - zlib=1.2.13=h4dc903c_0
   - zstd=1.5.2=hcb37349_0
   - pip:
+      - absl-py==1.4.0
+      - cachetools==5.3.0
+      - chardet==3.0.4
+      - deep-translator==1.10.1
+      - detoxify==0.5.1
+      - google-auth==2.17.1
+      - google-auth-oauthlib==0.4.6
+      - google-trans-new==1.1.9
+      - googletrans==4.0.0rc1
+      - grpcio==1.53.0
+      - h11==0.9.0
+      - h2==3.2.0
       - hirlite==0.3.1
+      - hpack==3.0.0
+      - hstspreload==2023.1.1
+      - httpcore==0.9.1
+      - httpx==0.13.3
+      - hyperframe==5.2.0
+      - idna==2.10
       - importlib-metadata==2.1.3
       - iso8601==1.1.0
+      - langdetect==1.0.9
+      - markdown==3.4.3
+      - nlcodec==0.5
+      - oauthlib==3.2.2
+      - portalocker==2.7.0
+      - protobuf==3.20.3
+      - py4j==0.10.9.5
+      - pyasn1==0.4.8
+      - pyasn1-modules==0.2.8
+      - pyspark==3.3.2
       - python-magic==0.4.27
+      - requests-oauthlib==1.3.1
+      - rfc3986==1.5.0
+      - rsa==4.9
+      - rtg==0.7.2
+      - ruamel-yaml==0.17.21
+      - ruamel-yaml-clib==0.2.7
+      - sacrebleu-macrof==2.0.1
+      - sacremoses==0.0.53
+      - sentencepiece==0.1.97
       - setuptools==59.5.0
+      - tabulate==0.9.0
+      - tensorboard==2.11.2
+      - tensorboard-data-server==0.6.1
+      - tensorboard-plugin-wit==1.8.1
+      - torch==1.13.1
+      - torchtext==0.14.1
+      - transformers==4.22.1
       - watermark==2.3.0
+      - werkzeug==2.2.3
 prefix: /Users/egunadi/anaconda3/envs/python37
 ```
 
@@ -372,7 +413,18 @@ Results can be reproduced via "code/main.py", which runs the following functions
 - geotopic_parsing.create_geo_df()
   - Uses "data/pixstory/pixstory_translations.csv" to create "data/pixstory/geo_df.csv"
   - Worked on by Lesly Escobar
+- run_detoxify.run_detoxify()
+  - Uses "data/pixstory/geo_df.csv" to create "data/pixstory/pixstory_detoxify.csv"
+  - Worked on by Yi Chang
+
+If all functions are run in order, "data/pixstory/pixstory_detoxify.csv" should contain all the features generated in this project. However, due to time constraints, these features were generated in a parallel fashion and combined using functions:
+
+- consolidate_pixstory_data.combine_features()
+- consolidate_pixstory_data.convert_csv_to_tsv()
+  - These two functions producte a final "data/pixstory/pixstory_final.tsv" containing all features generated
+  - Worked on by Eben Gunadi
 
 ### Analysis
 
-TBD
+See "observations" section of our report (worked on by Annie Chang) for an analysis of the data.
+- observations.py contains the script used
